@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage ('checkout') {
+            steps {
+                checkout ([$class: 'GitSCM', branches: [[name '*/main']], extensions: [], userRemoteconfigs:[[url: 'https://github.com/Jafrina/terraform-cicd/tree/main']]])
+
+            }
+        }
+        stage ("terraform init") {
+            steps {
+                sh ('terraform init')
+            }
+        }
+
+        stage ("terraform validate") {
+            steps {
+                echo "Terraform action is --> validate"
+                sh ('terraform vaildat')
+            }
+        }
+
+        stage ("terraform plan") {
+            steps {
+                echo "Terraform action is --> plan"
+                sh ('terraform plan')
+            }
+        }
+
+        stage ("terraform apply") {
+            stage {
+                echo "Terraform action is --> apply"
+                sh ('terraform apply -auot-approve')
+            }
+        }
+
+    }
+}    
