@@ -5,7 +5,7 @@ pipeline {
 
         stage ('checkout') {
             steps {
-                checkout ([$class: 'GitSCM', branches: [[name '*/main']], extensions: [], userRemoteconfigs:[[url: 'https://github.com/Jafrina/terraform-cicd.git']]])
+                checkout ([$class: 'GitSCM', branches: [[name '*/main']], extensions: [], userRemoteconfigs:[[url: 'https://github.com/Jafrina/terraform-cicd']]])
 
             }
         }
